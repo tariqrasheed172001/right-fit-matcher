@@ -1,0 +1,62 @@
+paths:
+  /api/match:
+    post:
+      summary: Find matching universities
+      description: Match universities based on user profile (GMAT, GPA, work experience, target program)
+      tags: [Matching]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MatchRequest"
+            examples:
+              basicMatch:
+                summary: Basic matching request
+                value:
+                  gmat: 700
+                  gpa: 3.5
+                  work_exp: 3
+                  target_program: "MBA"
+                  top_k: 10
+              advancedMatch:
+                summary: Advanced matching with user ID
+                value:
+                  gmat: 750
+                  gpa: 3.8
+                  work_exp: 5
+                  target_program: "MS"
+                  top_k: 20
+                  user_id: 1
+      responses:
+        200:
+          description: Matching universities retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MatchResponse"
+              example:
+                matches:
+                  - university_id: 1
+                    name: "Stanford University"
+                    probability: 0.8524
+                    compatibility: 0.892
+                    details:
+                      s_gmat: 0.962
+                      s_gpa: 0.875
+                      s_work: 0.833
+                count: 10
+        400:
+          description: Invalid input data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                error: "Invalid program type"
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"

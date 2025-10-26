@@ -1,0 +1,20 @@
+module.exports = {
+  testEnvironment: "node",
+  testMatch: ["**/__tests__/**/*.test.js", "**/?(*.)+(spec|test).js"],
+  collectCoverageFrom: [
+    "src/**/*.js",
+    "!src/**/*.spec.js",
+    "!src/database/**",
+    "!src/config/swagger.js",
+    "!src/server.js",
+    "!src/models/index.js",
+  ],
+  coverageDirectory: "coverage",
+  coverageReporters: ["text", "lcov", "html"],
+  verbose: true,
+  clearMocks: true,
+  resetMocks: true,
+  restoreMocks: true,
+  setupFilesAfterEnv: ["<rootDir>/src/__tests__/setup.js"],
+  forceExit: true,
+};

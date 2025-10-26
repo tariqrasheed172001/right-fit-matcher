@@ -1,0 +1,180 @@
+paths:
+  /api/universities:
+    get:
+      summary: Get all universities
+      description: Retrieve a list of all universities, optionally filtered by program type
+      tags: [Universities]
+      parameters:
+        - in: query
+          name: program
+          schema:
+            type: string
+            enum: [MBA, MS, MSCS, MSDS, PhD]
+          description: Filter universities by program type
+          example: MBA
+      responses:
+        200:
+          description: List of universities retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  universities:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/University"
+              example:
+                universities:
+                  - id: 1
+                    name: "Stanford University"
+                    country: "USA"
+                    program_type: "MBA"
+                    avg_gmat: 730
+                    avg_gpa: 3.8
+                    avg_work_exp: 4.5
+                    admit_rate: 0.08
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a new university
+      description: Add a new university to the database
+      tags: [Universities]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  example: "Harvard University"
+                country:
+                  type: string
+                  example: "USA"
+                program_type:
+                  type: string
+                  enum: [MBA, MS, MSCS, MSDS, PhD]
+                  example: "MBA"
+                avg_gmat:
+                  type: integer
+                  minimum: 0
+                  maximum: 800
+                  example: 730
+                avg_gpa:
+                  type: number
+                  minimum: 0
+                  maximum: 4
+                  example: 3.8
+                avg_work_exp:
+                  type: number
+                  example: 4.5
+                admit_rate:
+                  type: number
+                  minimum: 0
+                  maximum: 1
+                  example: 0.08
+                score_scale:
+                  type: object
+                  example: {}
+      responses:
+        201:
+          description: University created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  university:
+                    $ref: "#/components/schemas/University"
+        400:
+          description: Invalid input data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: Internal server error
+
+  /api/universities/stats:
+    get:
+      summary: Get university statistics
+      description: Get aggregate statistics about universities in the database
+      tags: [Universities]
+      responses:
+        200:
+          description: Statistics retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statistics:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        example: 150
+                      program_types:
+                        type: integer
+                        example: 5
+                      countries:
+                        type: integer
+                        example: 20
+                      avg_gmat_score:
+                        type: number
+                        example: 680.5
+                      avg_gpa_score:
+                        type: number
+                        example: 3.6
+                      avg_work_exp_years:
+                        type: number
+                        example: 3.8
+                      avg_admit_rate:
+                        type: number
+                        example: 0.25
+        500:
+          description: Internal server error
+
+  /api/universities/{id}:
+    get:
+      summary: Get a university by ID
+      description: Retrieve details of a specific university
+      tags: [Universities]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: University ID
+          example: 1
+      responses:
+        200:
+          description: University details retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  university:
+                    $ref: "#/components/schemas/University"
+        404:
+          description: University not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
