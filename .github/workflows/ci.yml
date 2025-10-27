@@ -51,6 +51,6 @@ jobs:
         run: npm test
 
       - name: Build
-        run: npm run build
+        run: cd right-fit-matcher-frontend && npm run build
         env:
           NEXT_PUBLIC_API_URL: http://localhost:4000
