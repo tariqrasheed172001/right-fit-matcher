@@ -11,13 +11,12 @@ const errorHandler = (err, req, res, next) => {
   });
 
   const statusCode = err.statusCode || 500;
-  const message =
-    process.env.NODE_ENV === "production"
-      ? "Internal server error"
-      : err.message;
+  const isClientError = statusCode >= 400 && statusCode < 500;
+  const shouldShowMessage =
+    isClientError || process.env.NODE_ENV !== "production";
 
   res.status(statusCode).json({
-    error: message,
+    error: shouldShowMessage ? err.message : "Internal server error",
     ...(process.env.NODE_ENV !== "production" && { stack: err.stack }),
   });
 };
