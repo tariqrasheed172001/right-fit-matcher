@@ -14,8 +14,32 @@ const app = express();
 // Request logging middleware
 app.use(requestLogger);
 
-// Middleware
-app.use(cors());
+// CORS Configuration
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(",").map((origin) => origin.trim())
+  : ["http://localhost:3000", "http://localhost:3001"];
+
+if (process.env.NODE_ENV === "development") {
+  allowedOrigins.push("http://localhost:3000", "http://localhost:3001");
+}
+
+logger.info(`Allowed CORS origins: ${allowedOrigins.join(", ")}`);
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+  })
+);
+
 app.use(express.json());
 
 // Database connection
