@@ -97,9 +97,44 @@ npm run test:coverage # Generate coverage report
 
 ## 📖 API Documentation
 
-Once the backend is running, visit:
+### Live API Documentation
+- **Live API**: https://right-fit-matcher-oewp.onrender.com/
+- **Swagger UI**: https://right-fit-matcher-oewp.onrender.com/api-docs
+- **Health Check**: https://right-fit-matcher-oewp.onrender.com/health
+
+### Local Development
+Once the backend is running locally:
 - Swagger UI: http://localhost:4000/api-docs
 - Health Check: http://localhost:4000/health
+
+## 🚀 Live Deployment
+
+### Production URLs
+- **Frontend (Vercel)**: [https://right-fit-matcher-rust.vercel.app/](https://right-fit-matcher-rust.vercel.app/)
+- **Backend API (Render)**: [https://right-fit-matcher-oewp.onrender.com/](https://right-fit-matcher-oewp.onrender.com/)
+- **API Documentation**: [https://right-fit-matcher-oewp.onrender.com/api-docs](https://right-fit-matcher-oewp.onrender.com/api-docs)
+
+### Deployment Details
+- **Frontend**: Deployed on Vercel with Next.js production build
+- **Backend**: Deployed on Render with Node.js and Express
+- **Database**: PostgreSQL database hosted on Render
+- **Environment**: Production environment with SSL encryption
+
+### Accessing the Application
+1. Visit the [live frontend application](https://right-fit-matcher-rust.vercel.app/)
+2. Sign up for a new account or sign in with existing credentials
+3. Enter your profile details (GMAT, GPA, Work Experience)
+4. Choose your target program
+5. Get personalized university matches
+6. View your search history in the profile section
+
+### API Endpoints
+The backend provides RESTful API endpoints for:
+- `/api/auth/*` - User authentication (register, login, profile)
+- `/api/users/*` - User management and search history
+- `/api/matching/*` - University matching service
+- `/api/universities/*` - University data access
+- `/api-docs` - Interactive API documentation
 
 ## 🗄️ Database Schema
 
