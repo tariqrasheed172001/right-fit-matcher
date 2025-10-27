@@ -39,6 +39,8 @@ app.use(
 );
 
 // Routes
+app.get("/", (req, res) => res.send("Right Fit Matcher backend is live 🚀"));
+
 app.use("/api", apiRoutes);
 
 // Health check endpoint
@@ -52,10 +54,10 @@ app.use(errorHandler);
 // Start server
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
-  logger.success(`Server is running on port ${port}`);
-  logger.info(`Health check: http://localhost:${port}/health`);
-  logger.info(`API base: http://localhost:${port}/api`);
-  logger.info(`API Documentation: http://localhost:${port}/api-docs`);
+  logger.success(`✅ Server is running on port ${port}`);
+  logger.info(`Health check endpoint: /health`);
+  logger.info(`API base path: /api`);
+  logger.info(`Swagger docs: /api-docs`);
 });
 
 // Handle uncaught exceptions
