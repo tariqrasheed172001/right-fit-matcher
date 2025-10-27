@@ -45,7 +45,7 @@ const options = {
         description: "Development server",
       },
       {
-        url: "https://api.rightfitmatcher.com",
+        url: "https://right-fit-matcher-oewp.onrender.com",
         description: "Production server",
       },
     ],
