@@ -107,11 +107,11 @@ const logger = winston.createLogger({
   ],
 });
 
-if (process.env.NODE_ENV === "production") {
-  logger.transports.find(
-    (t) => t instanceof winston.transports.Console
-  ).silent = true;
-}
+// if (process.env.NODE_ENV === "production") {
+//   logger.transports.find(
+//     (t) => t instanceof winston.transports.Console
+//   ).silent = true;
+// }
 
 logger.success = function (message, meta) {
   this.info(message, { ...meta, level: "success" });
